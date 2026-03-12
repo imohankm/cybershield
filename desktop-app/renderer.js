@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 pane.classList.remove('active');
                 if (pane.id === targetTab) {
                     pane.classList.add('active');
+                    // Refresh iframe if it's the web-dash tab
+                    const ifr = pane.querySelector('iframe');
+                    if (ifr) ifr.src = ifr.src; 
                 }
             });
         });

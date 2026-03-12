@@ -128,7 +128,7 @@ def delete_log(log_id: int):
 # Dashboard is located one level up from backend
 dashboard_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dashboard"))
 if os.path.exists(dashboard_path):
-    app.mount("/dashboard", StaticFiles(directory=dashboard_path), name="dashboard")
+    app.mount("/dashboard", StaticFiles(directory=dashboard_path, html=True), name="dashboard")
 
 extension_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "extension"))
 if os.path.exists(extension_path):
