@@ -104,9 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             // Mimic backend scan for the manual tool
-            const response = await fetch(`http://127.0.0.1:8000/api/logs`); 
-            // Note: In a real scenario, we'd have a specific /scan endpoint, 
-            // but we'll use the explainable logic already built.
+            const response = await fetch(`http://localhost:8000/api/logs`); 
             
             setTimeout(() => {
                 const isRisky = url.includes('login') || url.includes('verify') || url.length > 50;
@@ -126,37 +124,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Breach Checker (Simulated)
-    const breachInput = document.getElementById('breachInput');
-    const checkBreachBtn = document.getElementById('checkBreachBtn');
-    const breachResult = document.getElementById('breachResult');
-
-    checkBreachBtn.addEventListener('click', () => {
-        const email = breachInput.value.trim();
-        if (!email) return;
-
-        breachResult.innerText = "Searching global databases...";
-        breachResult.style.color = "var(--text-muted)";
-
-        setTimeout(() => {
-            const isLeaked = email.length % 2 === 0; // Simulated logic
-            if (isLeaked) {
-                breachResult.innerText = "⚠️ BREACH DETECTED: This email was found in 2 historical leaks.";
-                breachResult.style.color = "var(--risk-color)";
-            } else {
-                breachResult.innerText = "✅ SECURE: No leaks found for this address.";
-                breachResult.style.color = "var(--safe-color)";
-            }
-        }, 1500);
-    });
-
-    // 3. Password Strength
+    // 2. Password Strength (Unified & Enhanced)
     const passInput = document.getElementById('passInput');
     const passFill = document.getElementById('passStrengthFill');
     const passFeedback = document.getElementById('passFeedback');
 
     passInput.addEventListener('input', () => {
         const pass = passInput.value;
+        if (!pass) {
+            passFill.style.width = "0%";
+            passFeedback.innerText = "";
+            return;
+        }
         let score = 0;
         
         if (pass.length > 8) score += 25;
@@ -168,13 +147,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (score <= 25) {
             passFill.style.backgroundColor = "var(--risk-color)";
-            passFeedback.innerText = "Weak - Add special characters";
+            passFeedback.innerText = "WEAK - Increase length and use symbols";
+            passFeedback.style.color = "var(--risk-color)";
         } else if (score <= 75) {
             passFill.style.backgroundColor = "var(--warning-color)";
-            passFeedback.innerText = "Medium - Good start";
+            passFeedback.innerText = "MEDIUM - Getting there!";
+            passFeedback.style.color = "var(--warning-color)";
         } else {
             passFill.style.backgroundColor = "var(--safe-color)";
-            passFeedback.innerText = "Strong - CyberShield Verified";
+            passFeedback.innerText = "STRONG - AI Verified Secure";
+            passFeedback.style.color = "var(--safe-color)";
         }
     });
 
@@ -203,29 +185,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 animateValue(suspiciousCountEl, parseInt(suspiciousCountEl.innerText) || 0, suspicious, 800);
                 animateValue(safeCountEl, parseInt(safeCountEl.innerText) || 0, safe, 800);
 
-                // 3. Update Recent Activity List (Top 5)
+                // 3. Update Recent Activity List (Detailed - Last 15 items)
                 recentActivityList.innerHTML = "";
-                const recentLogs = logs.slice(-5).reverse();
+                const recentLogs = logs.slice(-15).reverse();
                 
                 recentLogs.forEach((log, index) => {
                     const div = document.createElement('div');
                     div.className = 'activity-item';
+                    div.style.marginBottom = "8px";
+                    div.style.display = "flex";
+                    div.style.flexDirection = "column";
+                    div.style.gap = "4px";
                     
                     const domain = new URL(log.url).hostname;
-                    const time = new Date(log.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const fullUrl = log.url;
+                    const time = new Date(log.timestamp || log.visited_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const riskScore = log.risk_score || 0;
                     
                     div.innerHTML = `
-                        <span>${domain}</span>
-                        <span class="live-tag" style="background: ${getStatusColor(log.status)}33; color: ${getStatusColor(log.status)}">
-                            ${log.status.toUpperCase()} • ${time}
-                        </span>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong title="${fullUrl}" style="cursor: help;">${domain}</strong>
+                            <span style="font-size: 11px; color: var(--text-muted);">${time}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px;">
+                            <span class="live-tag" style="padding: 2px 6px; font-size: 10px; background: ${getStatusColor(log.status)}33; color: ${getStatusColor(log.status)}">
+                                ${log.status.toUpperCase()}
+                            </span>
+                            <span style="color: ${riskScore > 50 ? 'var(--risk-color)' : 'var(--text-muted)'}">AI Score: ${riskScore}%</span>
+                        </div>
                     `;
                     
-                    // IF it's the most recent log, update Assistant with EXPLAINABLE AI REASONS
+                    // Update Assistant with the absolute latest signal
                     if (index === 0) {
                         const type = log.status.toLowerCase().includes('phishing') ? 'phishing' : 'safe';
                         const reason = EXPLAIN_REASONS[type][Math.floor(Math.random() * EXPLAIN_REASONS[type].length)];
-                        assistantMsg.innerHTML = `<strong>Last Site Analysis:</strong><br>${reason}`;
+                        assistantMsg.innerHTML = `<strong>Latest Network Signal: ${domain}</strong><br>${reason}`;
                     }
                     
                     recentActivityList.appendChild(div);
