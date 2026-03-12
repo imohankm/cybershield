@@ -54,6 +54,7 @@ body {
     font-size: 10px;
     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
     text-transform: uppercase;
@@ -434,12 +435,24 @@ header p {
     margin-top: 20px;
 }
 
-/* Transitions */
-.content-wrapper::-webkit-scrollbar {
-    width: 6px;
+/* Threat Pulse Dot */
+.threat-pulse-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--risk-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--risk-color);
+    animation: threatPulse 3s infinite ease-in-out;
 }
 
-.content-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+@keyframes threatPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(2.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.visual-chart {
+    background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 242, 255, 0.1);
 }

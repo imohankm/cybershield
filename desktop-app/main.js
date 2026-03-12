@@ -33,3 +33,18 @@ app.on('window-all-closed', function () {
 ipcMain.on('open-external-url', (event, url) => {
   shell.openExternal(url);
 });
+
+ipcMain.handle('run-installer', async () => {
+    const { exec } = require('child_process');
+    const scriptPath = path.join(__dirname, 'install-extension.ps1');
+    
+    return new Promise((resolve, reject) => {
+        exec(`powershell -ExecutionPolicy Bypass -File "${scriptPath}"`, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Exec error: ${error}`);
+                reject(error.message);
+            }
+            resolve(stdout || "Registry signals processed.");
+        });
+    });
+});
