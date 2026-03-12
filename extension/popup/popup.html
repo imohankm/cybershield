@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body id="app-body">
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo" id="logo-dashboard-link" style="cursor: pointer;">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">CyberShield</span>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div> ACTIVE
+            </div>
+        </div>
+
+        <!-- Domain Details -->
+        <div class="domain-info">
+            <div class="domain-label">Current Website</div>
+            <div class="domain-name" id="current-domain">Analyzing...</div>
+        </div>
+
+        <!-- Trust Score Circle (SVG) -->
+        <div class="score-container">
+            <svg viewBox="0 0 36 36" class="circular-chart">
+                <path class="circle-bg" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <!-- Stroke dasharray handles the circumference. Dashoffset will be controlled by JS (100 is empty, 0 is full) -->
+                <path class="circle" id="score-circle" stroke-dasharray="100, 100" stroke-dashoffset="100" d="M18 2.0845
+                    a 15.9155 15.9155 0 0 1 0 31.831
+                    a 15.9155 15.9155 0 0 1 0 -31.831" />
+            </svg>
+            <div class="score-text">
+                <div class="score-value" id="score-number">--</div>
+                <div class="score-label">Trust Score</div>
+            </div>
+        </div>
+
+        <!-- Website Status Label -->
+        <div class="status-label">
+            <div class="status-badge" id="status-badge">ANALYZING DOMAIN</div>
+        </div>
+
+        <!-- AI Scanning Indicator -->
+        <div class="ai-scan-anim" id="ai-scan-status">
+            <i class="ri-brain-line scan-icon"></i> AI Engine Scanning
+        </div>
+
+        <!-- AI Explanation Panel (Hidden until requested/needed) -->
+        <button class="toggle-ai-btn" id="toggle-ai-btn">
+            <i class="ri-robot-2-line"></i> Why this is <span id="why-status-text" style="margin-left:4px;">safe</span>?
+        </button>
+
+        <div class="ai-explanation" id="ai-explanation-panel">
+            <div class="ai-exp-header">
+                <i class="ri-sparkling-fill"></i> AI Reasoning Output
+            </div>
+            <div class="ai-exp-row">
+                <span class="ai-exp-label">✔ Domain Age</span>
+                <span class="ai-exp-val" id="ai-exp-age">--</span>
+            </div>
+            <div class="ai-exp-row">
+                <span class="ai-exp-label">✔ SSL Certificate</span>
+                <span class="ai-exp-val" id="ai-exp-ssl">--</span>
+            </div>
+            <div class="ai-exp-row">
+                <span class="ai-exp-label">✔ Known Malware</span>
+                <span class="ai-exp-val" id="ai-exp-malware">--</span>
+            </div>
+            <div class="ai-exp-row">
+                <span class="ai-exp-label">✔ Brand Impersonation</span>
+                <span class="ai-exp-val" id="ai-exp-impersonation">--</span>
+            </div>
+            <div class="final-verdict" id="ai-exp-verdict">
+                FINAL VERDICT: SAFE
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Protection Status Details -->
+        <div class="status-footer">
+            <div>Browser Monitoring: <span>ON</span></div>
+            <div>AI Engine: <span>ACTIVE</span></div>
+        </div>
+
+        <!-- Bottom Action Buttons -->
+        <div class="action-grid">
+            <button id="dashboard-btn" class="action-btn primary-btn">
+                Open Dashboard
+            </button>
+            <button id="report-btn" class="action-btn secondary-btn">
+                Report Website
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

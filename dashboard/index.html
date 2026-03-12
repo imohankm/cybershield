@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield Premium Dashboard</title>
+    <!-- Modern Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet Maps CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Icons support -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="style.css?v=2" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="ri-shield-check-fill"></i>
+                </div>
+                <h2>CyberShield <span
+                        style="color:var(--accent);font-size:12px;vertical-align:top;border:1px solid var(--accent);padding:2px 4px;border-radius:4px;margin-left:4px;">PRO</span>
+                </h2>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <i class="ri-dashboard-line"></i>
+                    <span>Activity Dashboard</span>
+                </a>
+                <a href="#threat-timeline" class="nav-item">
+                    <i class="ri-history-line"></i>
+                    <span>Threat Logs</span>
+                </a>
+                <a href="#map" class="nav-item">
+                    <i class="ri-earth-line"></i>
+                    <span>Global Threats</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ri-settings-4-line"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <!-- AI Assistant Panel (NEW) -->
+            <div class="ai-assistant-panel animate-slide-up" style="animation-delay: 0.5s;">
+                <div class="ai-assistant-header">
+                    <i class="ri-robot-2-line"></i> AI Cyber Assistant
+                </div>
+                <div class="ai-assistant-body">
+                    "Monitoring network activity. We recommend avoiding unknown domains. Your protection is active."
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <div class="status-dot pulsing"></div>
+                    <span>AI Engine Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="ri-search-line"></i>
+                    <input type="text" placeholder="Search visited domains...">
+                </div>
+
+                <div class="topbar-right">
+                    <!-- Live Browser Protection Status (NEW) -->
+                    <div class="browser-protection-status">
+                        Browser Protection: ACTIVE
+                        <div class="status-dot"></div>
+                    </div>
+
+                    <div class="user-profile" id="user-profile-btn">
+                        <div class="notification-btn">
+                            <i class="ri-notification-3-line"></i>
+                            <span class="badge">3</span>
+                        </div>
+                        <img src="https://ui-avatars.com/api/?name=User&background=3b82f6&color=fff" alt="User"
+                            class="avatar">
+                        <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="dropdown-header">
+                                <strong>Mohan</strong>
+                                <span>Premium Account</span>
+                            </div>
+                            <a href="#" class="dropdown-item"><i class="ri-user-line"></i> My Account</a>
+                            <a href="#" class="dropdown-item"><i class="ri-shield-keyhole-line"></i> Security
+                                Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-logout"><i class="ri-logout-box-r-line"></i> Sign
+                                Out</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Hero Security Status Panel (NEW) -->
+            <div class="hero-panel animate-fade-in">
+                <div class="hero-main">
+                    <div class="hero-icon" id="hero-status-icon">
+                        <i class="ri-shield-check-fill"></i>
+                    </div>
+                    <div class="hero-text">
+                        <h1 id="hero-protection-level">SYSTEM SECURE</h1>
+                        <p>AI Engine Monitoring Network Activity in Real-Time</p>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-label">Threat Level</span>
+                        <span class="hero-stat-value" id="hero-threat-level" style="color:var(--safe)">LOW</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-label">Active Protection</span>
+                        <span class="hero-stat-value" style="color:var(--accent)">ENABLED</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-label">Last Scan</span>
+                        <span class="hero-stat-value" id="hero-last-scan">Just now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Threat Detection Meter (NEW) -->
+            <div class="threat-meter-container animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="threat-meter-header">
+                    <div class="threat-meter-title">
+                        <i class="ri-brain-line"></i> AI Threat Detector
+                    </div>
+                    <div class="threat-meter-status" id="meter-status"
+                        style="background: var(--safe-glow); color: var(--safe)">
+                        Status: Analyzing...
+                    </div>
+                </div>
+                <div class="threat-meter-track">
+                    <div class="threat-meter-fill" id="threat-meter-bar"></div>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: var(--text-muted); font-weight: 600;">
+                    <span>SAFE (0%)</span>
+                    <span>RISK LEVEL <span id="meter-percent">0%</span></span>
+                    <span>DANGER (100%)</span>
+                </div>
+            </div>
+
+            <!-- Summary Cards Upgraded -->
+            <div class="summary-grid">
+                <div class="summary-card safe-card animate-slide-up" style="animation-delay: 0.2s;">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Safe Sites</span>
+                        <div class="summary-card-icon"><i class="ri-shield-check-line"></i></div>
+                    </div>
+                    <div class="summary-card-body">
+                        <div class="summary-card-value" id="count-safe">0</div>
+                        <div class="summary-card-trend trend-up"><i class="ri-arrow-up-line"></i> Secured by AI</div>
+                    </div>
+                    <div class="card-bg-icon"><i class="ri-shield-check-line"></i></div>
+                </div>
+
+                <div class="summary-card suspicious-card animate-slide-up" style="animation-delay: 0.3s;">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Suspicious</span>
+                        <div class="summary-card-icon"><i class="ri-error-warning-line"></i></div>
+                    </div>
+                    <div class="summary-card-body">
+                        <div class="summary-card-value" id="count-suspicious">0</div>
+                        <div class="summary-card-trend trend-down"><i class="ri-alert-line"></i> Warning</div>
+                    </div>
+                    <div class="card-bg-icon"><i class="ri-error-warning-line"></i></div>
+                </div>
+
+                <div class="summary-card danger-card animate-slide-up" style="animation-delay: 0.4s;">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Phishing</span>
+                        <div class="summary-card-icon"><i class="ri-skull-2-line"></i></div>
+                    </div>
+                    <div class="summary-card-body">
+                        <div class="summary-card-value" id="count-phishing">0</div>
+                        <div class="summary-card-trend trend-down"><i class="ri-arrow-up-line"></i> Blocked completely
+                        </div>
+                    </div>
+                    <div class="card-bg-icon"><i class="ri-skull-2-line"></i></div>
+                </div>
+
+                <div class="summary-card total-card animate-slide-up" style="animation-delay: 0.5s;">
+                    <div class="summary-card-header">
+                        <span class="summary-card-title">Total Scans</span>
+                        <div class="summary-card-icon"><i class="ri-radar-line"></i></div>
+                    </div>
+                    <div class="summary-card-body">
+                        <div class="summary-card-value" id="count-total">0</div>
+                        <div class="summary-card-trend trend-up"><i class="ri-global-line"></i> Network wide</div>
+                    </div>
+                    <div class="card-bg-icon"><i class="ri-radar-line"></i></div>
+                </div>
+            </div>
+
+            <!-- Middle Section: Activity Graph & Global Map -->
+            <div class="charts-grid">
+                <!-- Activity Graph -->
+                <div class="chart-panel animate-slide-up" style="animation-delay: 0.6s;">
+                    <div class="chart-panel-header">
+                        <h2>Website Activity (Last 24 Hours)</h2>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="activityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Global Threat Map -->
+                <div class="chart-panel animate-slide-up" id="map" style="animation-delay: 0.7s;">
+                    <div class="chart-panel-header">
+                        <h2>Global Phishing Sources</h2>
+                    </div>
+                    <div class="map-container" id="threatMap"></div>
+                </div>
+            </div>
+
+            <!-- Lower Section: Timeline & Table -->
+            <div class="lower-grid">
+                <!-- Cyber Threat Timeline -->
+                <div class="timeline-panel animate-slide-up" id="threat-timeline" style="animation-delay: 0.8s;">
+                    <div class="chart-panel-header">
+                        <h2>Threat Timeline</h2>
+                    </div>
+                    <div class="timeline-container" id="timeline-body">
+                        <!-- Timeline Items populated by JS -->
+                        <div class="loading-state">
+                            <div class="spinner"></div>
+                            <p>Loading timeline...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Table -->
+                <div class="table-panel animate-slide-up" style="animation-delay: 0.9s;">
+                    <div class="table-header">
+                        <h2>Recent Detections</h2>
+                        <button class="export-btn" id="refresh-btn"
+                            style="background:transparent;border:1px solid var(--border-color);color:var(--text-primary);padding:6px 12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;">
+                            <i class="ri-refresh-line"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="table-container-scroll">
+                        <table class="activity-table">
+                            <thead>
+                                <tr>
+                                    <th>Website</th>
+                                    <th>Status</th>
+                                    <th>Risk Score</th>
+                                    <th>Time Visited</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logs-body">
+                                <!-- Rows will be populated by JS -->
+                                <tr>
+                                    <td colspan="5" class="loading-state">
+                                        <div class="spinner"></div>
+                                        <p>Loading AI logs...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Enhanced View Details Modal Overlay -->
+    <div class="details-modal-overlay" id="details-modal">
+        <div class="details-modal-box">
+            <div class="modal-header">
+                <h2>Scan Complete <span id="modal-status-badge" class="badge-safe"></span></h2>
+                <button class="modal-close-btn" id="modal-close-btn"><i class="ri-close-line"></i></button>
+            </div>
+
+            <div class="modal-layout">
+                <!-- Column 1: Core Details -->
+                <div class="modal-col">
+                    <div class="modal-row">
+                        <span class="modal-label">Domain</span>
+                        <span class="modal-value" id="modal-domain">google.com</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Full URL Traversed</span>
+                        <span class="modal-value url-text" id="modal-url">https://www.google.com/search?q=test</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Time of Scan</span>
+                        <span class="modal-value" id="modal-time">Oct 10, 10:45 AM</span>
+                    </div>
+                    <div class="modal-row">
+                        <span class="modal-label">Identity ID</span>
+                        <span class="modal-value" id="modal-id">CS-XXXXXX</span>
+                    </div>
+                </div>
+
+                <!-- Column 2: AI Details Panel -->
+                <div class="modal-col">
+                    <div class="ai-explanation-panel">
+                        <div class="ai-exp-header">
+                            <i class="ri-robot-2-fill"></i> AI Security Analysis
+                        </div>
+                        <div class="modal-row" style="flex-direction:row;justify-content:space-between;">
+                            <span class="modal-label">Domain Age:</span>
+                            <span class="modal-value" id="modal-ai-age">3 years</span>
+                        </div>
+                        <div class="modal-row" style="flex-direction:row;justify-content:space-between;">
+                            <span class="modal-label">SSL Certificate:</span>
+                            <span class="modal-value" id="modal-ai-ssl" style="color:var(--safe)">Valid</span>
+                        </div>
+                        <div class="modal-row" style="flex-direction:row;justify-content:space-between;">
+                            <span class="modal-label">Keyword Risk:</span>
+                            <span class="modal-value" id="modal-ai-keyword">Low</span>
+                        </div>
+                        <div class="modal-row" style="flex-direction:row;justify-content:space-between;">
+                            <span class="modal-label">Phishing Similarity:</span>
+                            <span class="modal-value" id="modal-ai-sim">5%</span>
+                        </div>
+
+                        <div class="final-score-box">
+                            <span class="modal-label" style="display:block;margin-bottom:4px;">Final AI Risk
+                                Score</span>
+                            <span class="str-value" id="modal-score" style="color:var(--text-primary)">0 / 100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="modal-btn" id="modal-action-btn">Launch Safe Container</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to fetch and render data -->
+    <script src="app.js?v=2"></script>
+</body>
+
+</html>

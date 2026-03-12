@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CyberShield - Blocked</title>
+    <style>
+        :root {
+            --bg-dark: #0b1120;
+            --accent-red: #ef4444;
+            --accent-amber: #f59e0b;
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .shield-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px var(--accent-red));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .url-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            word-break: break-all;
+            margin-bottom: 30px;
+            font-family: monospace;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 30px;
+            border-radius: 10px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-safe {
+            background: var(--text-white);
+            color: var(--bg-dark);
+        }
+
+        .btn-safe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-unsafe {
+            background: transparent;
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+
+        .btn-unsafe:hover {
+            color: var(--text-white);
+        }
+
+        .warning-text {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shield-icon">🛡️</div>
+        <h1>CyberShield Blocked</h1>
+        <div class="status-badge" id="status-text">Phishing Detected</div>
+        <p class="warning-text">
+            AI CyberShield has identified this website as potentially harmful. It may be trying to steal your personal information, passwords, or credit card details.
+        </p>
+        <div class="url-display" id="blocked-url">...</div>
+        <div class="buttons">
+            <button class="btn-safe" id="go-back">Go Back to Safety</button>
+            <button class="btn-unsafe" id="proceed">Proceed Anyway (Unsafe)</button>
+        </div>
+    </div>
+    <script src="warning.js"></script>
+</body>
+</html>

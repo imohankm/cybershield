@@ -1,0 +1,28 @@
+{
+  "name": "ai-cybershield",
+  "version": "1.0.0",
+  "description": "AI CyberShield Control Center",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win"
+  },
+  "build": {
+    "appId": "com.aicybershield.app",
+    "productName": "AI CyberShield",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "AI CyberShield"
+    }
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}

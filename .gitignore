@@ -1,0 +1,40 @@
+# Python
+backend/venv/
+backend/__pycache__/     
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environments
+.env
+
+# OS generated files     
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Global exclusions
+**/node_modules/
+**/dist/
+**/build/
+**/venv/
+**/__pycache__/
+*.exe
+*.dll
+*.pyd
+*.pak
+*.bin
+*.dat
+*.node
+*.db-journal
+backend/logs.db

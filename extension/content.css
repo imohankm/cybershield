@@ -1,0 +1,532 @@
+/* Glassmorphism Toast for Safe Sites */
+#cyber-shield-safe-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: rgba(16, 185, 129, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+    z-index: 2147483647;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    transform: translateX(150%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#cyber-shield-safe-toast.cs-toast-show {
+    transform: translateX(0);
+}
+
+.cs-toast-icon {
+    font-size: 28px;
+}
+
+.cs-toast-title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.cs-toast-desc {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Warning overlay styles */
+#cyber-shield-warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(16px);
+    z-index: 2147483647;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: white;
+}
+
+#cyber-shield-warning-box {
+    background: rgba(30, 41, 59, 0.8);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 550px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(245, 158, 11, 0.2);
+    animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#cyber-shield-warning-box.cs-box-phishing {
+    background: rgba(40, 15, 15, 0.95);
+    border: 1px solid rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 100px rgba(239, 68, 68, 0.5);
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), superPulse 1s infinite alternate;
+}
+
+@keyframes superPulse {
+    from {
+        box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+        border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    to {
+        box-shadow: 0 0 120px rgba(239, 68, 68, 0.8);
+        border-color: rgba(239, 68, 68, 1);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#cyber-shield-warning-icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+    animation: wobble 2s infinite linear;
+}
+
+@keyframes wobble {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cyber-shield-status-phishing {
+    color: #ef4444;
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+}
+
+.cyber-shield-status-suspicious {
+    color: #eab308;
+    text-shadow: 0 0 20px rgba(234, 179, 8, 0.8);
+}
+
+#cyber-shield-warning-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+#cyber-shield-warning-text {
+    font-size: 17px;
+    color: #cbd5e1;
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+#cyber-shield-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.cyber-shield-btn {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cyber-shield-btn-safe {
+    background: #10b981;
+    color: white;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.cyber-shield-btn-safe:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+}
+
+.cyber-shield-btn-danger {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border: 1px solid #475569;
+}
+
+.cyber-shield-btn-danger:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Sidebar Panel - Injected Premium UI */
+/* -------------------------------------------------------------------------- */
+#cybershield-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 360px;
+    height: 100vh;
+    background: rgba(11, 18, 32, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 2147483647;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #E5E7EB;
+    font-family: inherit;
+    /* Use host font if generic, or our extension font if available */
+    overflow-y: auto;
+}
+
+#cybershield-panel.active {
+    transform: translateX(0);
+}
+
+.cs-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: max-content;
+}
+
+.cs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cs-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+
+.cs-logo-icon {
+    font-size: 18px;
+}
+
+.cs-logo-text {
+    background: linear-gradient(135deg, #3b82f6, #6366F1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cs-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94A3B8;
+}
+
+.cs-status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #22C55E;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #22C55E;
+}
+
+.cs-domain-info {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.cs-domain-label {
+    font-size: 11px;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.cs-domain-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #E5E7EB;
+    word-break: break-all;
+}
+
+.cs-score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.cs-circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 140px;
+    max-height: 140px;
+}
+
+.cs-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 2.5;
+}
+
+.cs-circle {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), stroke 0.5s ease;
+}
+
+.cs-score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.cs-score-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.cs-score-label {
+    font-size: 10px;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cs-status-label {
+    margin-top: -10px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.cs-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.cs-status-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.cs-ai-explanation {
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.cs-ai-exp-header {
+    font-size: 12px;
+    font-weight: 700;
+    color: #3B82F6;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 8px;
+}
+
+.cs-ai-exp-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 11px;
+}
+
+.cs-ai-exp-label {
+    color: #94A3B8;
+}
+
+.cs-ai-exp-val {
+    font-weight: 600;
+    color: #E5E7EB;
+    text-align: right;
+}
+
+.cs-live-monitor {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.cs-monitor-title {
+    font-size: 10px;
+    font-weight: 800;
+    color: #3b82f6;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.cs-monitor-item {
+    font-size: 11px;
+    color: #cbd5e1;
+    margin-bottom: 4px;
+    font-family: monospace;
+    opacity: 0.8;
+}
+
+.cs-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: auto -24px 20px -24px;
+}
+
+.cs-status-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #94A3B8;
+    margin-bottom: 20px;
+}
+
+.cs-status-footer span {
+    font-weight: 600;
+    color: #E5E7EB;
+}
+
+.cs-action-grid {
+    display: flex;
+    gap: 12px;
+}
+
+.cs-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.cs-primary-btn {
+    background: linear-gradient(135deg, #3B82F6, #6366F1);
+    color: white;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.cs-primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.cs-secondary-btn {
+    background: #111827;
+    color: #E5E7EB;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cs-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+/* Dynamic State Classes */
+#cybershield-panel.state-safe .cs-circle {
+    stroke: #22C55E;
+    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.4));
+}
+
+#cybershield-panel.state-safe .cs-status-badge {
+    color: #22C55E;
+    border-color: rgba(34, 197, 94, 0.3);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+#cybershield-panel.state-safe .cs-status-badge::before {
+    background: #22C55E;
+}
+
+#cybershield-panel.state-suspicious .cs-circle {
+    stroke: #F59E0B;
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.4));
+}
+
+#cybershield-panel.state-suspicious .cs-status-badge {
+    color: #F59E0B;
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+#cybershield-panel.state-suspicious .cs-status-badge::before {
+    background: #F59E0B;
+}
+
+#cybershield-panel.state-phishing .cs-circle {
+    stroke: #EF4444;
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.5));
+}
+
+#cybershield-panel.state-phishing .cs-status-badge {
+    color: #EF4444;
+    border-color: rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+
+#cybershield-panel.state-phishing .cs-status-badge::before {
+    background: #EF4444;
+}
