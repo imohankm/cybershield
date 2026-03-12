@@ -130,13 +130,9 @@
             </div>
 
             <!-- WEB DASHBOARD TAB (Embedded) -->
-            <div id="web-dash" class="tab-pane">
-                <header>
-                    <h1>Web Dashboard</h1>
-                    <p>Live view of your local CyberShield server dashboard.</p>
-                </header>
-                <div class="pro-card" style="height: calc(100vh - 180px); padding: 0; overflow: hidden;">
-                    <iframe src="http://localhost:8000/dashboard/" style="width: 100%; height: 100%; border: none;"></iframe>
+            <div id="web-dash" class="tab-pane" style="height: 100%; display: none;">
+                <div class="pro-card full-fit">
+                    <iframe src="http://localhost:8000/dashboard/" id="dashFrame"></iframe>
                 </div>
             </div>
 
