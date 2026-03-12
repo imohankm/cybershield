@@ -133,3 +133,7 @@ if os.path.exists(dashboard_path):
 extension_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "extension"))
 if os.path.exists(extension_path):
     app.mount("/extension", StaticFiles(directory=extension_path), name="extension")
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

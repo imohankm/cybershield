@@ -8,18 +8,24 @@
     "build": "electron-builder build --win"
   },
   "build": {
-    "appId": "com.aicybershield.app",
-    "productName": "AI CyberShield",
+    "appId": "com.aicybershield.master",
+    "productName": "CyberShield Master Suite",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "assets/icon.png"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "AI CyberShield"
-    }
+      "shortcutName": "CyberShield",
+      "runAfterFinish": true
+    },
+    "files": [
+      "**/*",
+      "!dist"
+    ]
   },
   "devDependencies": {
     "electron": "^30.0.0",
