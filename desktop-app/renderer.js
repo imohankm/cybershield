@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const installExtBtn = document.getElementById('installExtBtn');
 
     // --- Configuration ---
-    const DASHBOARD_URL = 'http://127.0.0.1:8000/dashboard';
-    const API_URL = 'http://127.0.0.1:8000/api/logs';
+    const DASHBOARD_URL = 'http://localhost:8000/dashboard/';
+    const API_URL = 'http://localhost:8000/api/logs';
 
     const SECURITY_TIPS = [
         "Analyzing your recent activity... All looks secure! Avoid clicking links in unsolicited emails.",
