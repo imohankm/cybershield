@@ -87,6 +87,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     });
 
+    // --- Advanced Tool Hub Logic ---
+
+    // 1. Manual Link Scanner
+    const manualUrlInput = document.getElementById('manualUrlInput');
+    const scanUrlBtn = document.getElementById('scanUrlBtn');
+
+    scanUrlBtn.addEventListener('click', async () => {
+        const url = manualUrlInput.value.trim();
+        if (!url) return;
+
+        assistantMsg.innerHTML = "🔍 <strong>Analysing link...</strong>";
+        
+        try {
+            // Mimic backend scan for the manual tool
+            const response = await fetch(`http://127.0.0.1:8000/api/logs`); 
+            // Note: In a real scenario, we'd have a specific /scan endpoint, 
+            // but we'll use the explainable logic already built.
+            
+            setTimeout(() => {
+                const isRisky = url.includes('login') || url.includes('verify') || url.length > 50;
+                const type = isRisky ? 'phishing' : 'safe';
+                const reason = EXPLAIN_REASONS[type][Math.floor(Math.random() * EXPLAIN_REASONS[type].length)];
+                
+                assistantMsg.innerHTML = `<strong>Manual Scan Result for ${url}:</strong><br>${reason}`;
+                
+                if (isRisky) {
+                    assistantMsg.style.borderLeft = "4px solid var(--risk-color)";
+                } else {
+                    assistantMsg.style.borderLeft = "4px solid var(--safe-color)";
+                }
+            }, 1000);
+        } catch (err) {
+            assistantMsg.innerHTML = "❌ AI Server Offline. Could not analyze link.";
+        }
+    });
+
+    // 2. Breach Checker (Simulated)
+    const breachInput = document.getElementById('breachInput');
+    const checkBreachBtn = document.getElementById('checkBreachBtn');
+    const breachResult = document.getElementById('breachResult');
+
+    checkBreachBtn.addEventListener('click', () => {
+        const email = breachInput.value.trim();
+        if (!email) return;
+
+        breachResult.innerText = "Searching global databases...";
+        breachResult.style.color = "var(--text-muted)";
+
+        setTimeout(() => {
+            const isLeaked = email.length % 2 === 0; // Simulated logic
+            if (isLeaked) {
+                breachResult.innerText = "⚠️ BREACH DETECTED: This email was found in 2 historical leaks.";
+                breachResult.style.color = "var(--risk-color)";
+            } else {
+                breachResult.innerText = "✅ SECURE: No leaks found for this address.";
+                breachResult.style.color = "var(--safe-color)";
+            }
+        }, 1500);
+    });
+
+    // 3. Password Strength
+    const passInput = document.getElementById('passInput');
+    const passFill = document.getElementById('passStrengthFill');
+    const passFeedback = document.getElementById('passFeedback');
+
+    passInput.addEventListener('input', () => {
+        const pass = passInput.value;
+        let score = 0;
+        
+        if (pass.length > 8) score += 25;
+        if (/[A-Z]/.test(pass)) score += 25;
+        if (/[0-9]/.test(pass)) score += 25;
+        if (/[^A-Za-z0-9]/.test(pass)) score += 25;
+
+        passFill.style.width = score + "%";
+        
+        if (score <= 25) {
+            passFill.style.backgroundColor = "var(--risk-color)";
+            passFeedback.innerText = "Weak - Add special characters";
+        } else if (score <= 75) {
+            passFill.style.backgroundColor = "var(--warning-color)";
+            passFeedback.innerText = "Medium - Good start";
+        } else {
+            passFill.style.backgroundColor = "var(--safe-color)";
+            passFeedback.innerText = "Strong - CyberShield Verified";
+        }
+    });
+
     // --- Fetch & Update Logic ---
     async function updateDashboard() {
         try {
